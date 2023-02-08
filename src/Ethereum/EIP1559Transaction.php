@@ -120,7 +120,9 @@ class EIP1559Transaction
             $value = strpos($item, '0x') !== false ? substr($item, strlen('0x')) : $item;
             $data[] = $value ? '0x' . $this->hexup($value) : '';
         }
-        return $rlp->encode($data);
+        
+        $types = array_fill(0, count($data), 'hex_fixed');
+        return $rlp->encode($data, $types);
     }
 
     private function hexup(string $value): string
